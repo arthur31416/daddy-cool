@@ -9,16 +9,98 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
+const createBookMutation = gql`
+  mutation createBook(
+    $author: String!
+    $title: String!
+    $size: Float
+    $arrayMeta: [BOOK_ARRAY_META!],
+    $yearBirth: Int,
+    $yearDeath: Int,
+    $link: String,
+    $subtitle: String,
+    $thumbnail: String
+  ) {
+    createBook(
+      author: $author
+      title: $title
+      size: $size
+      arrayMeta: $arrayMeta,
+      yearBirth: $yearBirth,
+      yearDeath: $yearDeath,
+      link: $link,
+      subtitle: $subtitle,
+      thumbnail: $thumbnail
+    ) {
+      author
+      title
+      size
+      arrayMeta,
+      yearBirth,
+      yearDeath,
+      link,
+      subtitle,
+      thumbnail
+    }
+  }
+`;
+
+class HomeScreen extends React.Component {
   static route = {
     navigationBar: {
       visible: false
     }
   };
 
+  componentDidMount() {
+    const rawBooks = require('../books_actual_XXX.json');
+
+    rawBooks &&
+      rawBooks.forEach(book => {
+        this._handleSave(
+          book.author,
+          book.title,
+          book.size,
+          book.arrayMeta,
+          book.yearBirth,
+          book.yearDeath,
+          book.link,
+          book.subtitle,
+          book.thumbnail
+        );
+      });
+  }
+
+  _handleSave = async (
+    author,
+    title,
+    size,
+    arrayMeta,
+    yearBirth,
+    yearDeath,
+    link,
+    subtitle,
+    thumbnail
+  ) => {
+    await this.props.mutate({
+      variables: {
+        author,
+        title,
+        size,
+        arrayMeta,
+        yearBirth,
+        yearDeath,
+        link,
+        subtitle,
+        thumbnail
+      }
+    });
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -114,6 +196,7 @@ export default class HomeScreen extends React.Component {
     );
   };
 }
+export default graphql(createBookMutation)(HomeScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
