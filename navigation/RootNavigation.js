@@ -1,17 +1,19 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Notifications } from 'expo';
+import React from "react";
+import { StyleSheet, View, Platform } from "react-native";
+import { Notifications } from "expo";
 import {
   StackNavigation,
   TabNavigation,
-  TabNavigationItem,
-} from '@expo/ex-navigation';
-import { FontAwesome } from '@expo/vector-icons';
+  TabNavigationItem
+} from "@expo/ex-navigation";
+import { Ionicons } from "@expo/vector-icons";
 
-import Alerts from '../constants/Alerts';
-import Colors from '../constants/Colors';
+import Alerts from "../constants/Alerts";
+import Colors from "../constants/Colors";
 import registerForPushNotificationsAsync
-  from '../api/registerForPushNotificationsAsync';
+  from "../api/registerForPushNotificationsAsync";
+
+const isAndroid = Platform.OS === "android";
 
 export default class RootNavigation extends React.Component {
   componentDidMount() {
@@ -27,19 +29,37 @@ export default class RootNavigation extends React.Component {
       <TabNavigation tabBarHeight={56} initialTab="home">
         <TabNavigationItem
           id="home"
-          renderIcon={isSelected => this._renderIcon('home', isSelected)}>
+          selectedStyle={styles.selectedTab}
+          style={styles.tab}
+          renderIcon={isSelected =>
+            this._renderIcon(isAndroid ? "md-home" : "ios-home", isSelected)}
+        >
           <StackNavigation initialRoute="home" />
         </TabNavigationItem>
 
         <TabNavigationItem
           id="links"
-          renderIcon={isSelected => this._renderIcon('book', isSelected)}>
+          selectedStyle={styles.selectedTab}
+          style={styles.tab}
+          renderIcon={isSelected =>
+            this._renderIcon(
+              isAndroid ? "md-search" : "ios-search",
+              isSelected
+            )}
+        >
           <StackNavigation initialRoute="links" />
         </TabNavigationItem>
 
         <TabNavigationItem
           id="settings"
-          renderIcon={isSelected => this._renderIcon('cog', isSelected)}>
+          selectedStyle={styles.selectedTab}
+          style={styles.tab}
+          renderIcon={isSelected =>
+            this._renderIcon(
+              isAndroid ? "md-person" : "ios-person",
+              isSelected
+            )}
+        >
           <StackNavigation initialRoute="settings" />
         </TabNavigationItem>
       </TabNavigation>
@@ -48,7 +68,7 @@ export default class RootNavigation extends React.Component {
 
   _renderIcon(name, isSelected) {
     return (
-      <FontAwesome
+      <Ionicons
         name={name}
         size={32}
         color={isSelected ? Colors.tabIconSelected : Colors.tabIconDefault}
@@ -78,11 +98,10 @@ export default class RootNavigation extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   selectedTab: {
-    color: Colors.tabIconSelected,
+    backgroundColor: Colors.tabBarBackground
   },
+  tab: {
+    backgroundColor: Colors.tabBarBackground
+  }
 });
