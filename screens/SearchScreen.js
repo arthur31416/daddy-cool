@@ -3,15 +3,17 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import Colors from '../constants/Colors';
 
 const BookQuery = gql`
   query BookQuery {
-    allBooks(filter: {author: "Emile Ajar"}) {
+    allBooks(filter: {author: "Robert GRAVES"}) {
       id
       title
       author,
-      size
+      size,
+      subtitle
     }
   }
 `;
@@ -69,11 +71,26 @@ class SearchScreen extends Component {
         style={styles.container}
         contentContainerStyle={this.props.route.getContentContainerStyle()}
       >
+        <Text style={styles.title}>
+          Search for: Robert GRAVES
+        </Text>
+
+        {allBooks.length === 0 &&
+          <Text>
+            No result!
+          </Text>}
 
         {allBooks.map(book => (
-          <Text key={book.id}>
-            {book.author} - {book.title} ({book.size}Mb)
-          </Text>
+          <View key={book.id} style={styles.item}>
+            <Text>
+              {book.title} ({book.size}Mb)
+            </Text>
+
+            {!!book.subtitle &&
+              <Text>
+                {book.subtitle}
+              </Text>}
+          </View>
         ))}
 
       </ScrollView>
@@ -85,6 +102,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15
+  },
+  title: {
+    padding: 15,
+    fontWeight: '600'
+  },
+  item: {
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.border
   }
 });
 
