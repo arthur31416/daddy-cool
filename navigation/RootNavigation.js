@@ -1,19 +1,19 @@
-import React from "react";
-import { StyleSheet, View, Platform } from "react-native";
-import { Notifications } from "expo";
+import React from 'react';
+import { StyleSheet, View, Platform } from 'react-native';
+import { Notifications } from 'expo';
 import {
   StackNavigation,
   TabNavigation,
   TabNavigationItem
-} from "@expo/ex-navigation";
-import { Ionicons } from "@expo/vector-icons";
+} from '@expo/ex-navigation';
+import { Ionicons } from '@expo/vector-icons';
 
-import Alerts from "../constants/Alerts";
-import Colors from "../constants/Colors";
+import Alerts from '../constants/Alerts';
+import Colors from '../constants/Colors';
 import registerForPushNotificationsAsync
-  from "../api/registerForPushNotificationsAsync";
+  from '../api/registerForPushNotificationsAsync';
 
-const isAndroid = Platform.OS === "android";
+const isAndroid = Platform.OS === 'android';
 
 export default class RootNavigation extends React.Component {
   componentDidMount() {
@@ -32,7 +32,7 @@ export default class RootNavigation extends React.Component {
           selectedStyle={styles.selectedTab}
           style={styles.tab}
           renderIcon={isSelected =>
-            this._renderIcon(isAndroid ? "md-home" : "ios-home", isSelected)}
+            this._renderIcon(isAndroid ? 'md-home' : 'ios-home', isSelected)}
         >
           <StackNavigation initialRoute="home" />
         </TabNavigationItem>
@@ -43,7 +43,7 @@ export default class RootNavigation extends React.Component {
           style={styles.tab}
           renderIcon={isSelected =>
             this._renderIcon(
-              isAndroid ? "md-search" : "ios-search",
+              isAndroid ? 'md-search' : 'ios-search',
               isSelected
             )}
         >
@@ -56,7 +56,7 @@ export default class RootNavigation extends React.Component {
           style={styles.tab}
           renderIcon={isSelected =>
             this._renderIcon(
-              isAndroid ? "md-person" : "ios-person",
+              isAndroid ? 'md-person' : 'ios-person',
               isSelected
             )}
         >
