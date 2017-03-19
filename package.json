@@ -34,7 +34,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "prettier --write",
+      "prettier --write --single-quote --bracket-spacing --parser<flow> --trailing-comma<none>",
       "git add"
     ]
   },
