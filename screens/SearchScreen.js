@@ -3,7 +3,14 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Linking
+} from 'react-native';
 import Colors from '../constants/Colors';
 
 const BookQuery = gql`
@@ -13,7 +20,8 @@ const BookQuery = gql`
       title
       author,
       size,
-      subtitle
+      subtitle,
+      link
     }
   }
 `;
@@ -43,6 +51,9 @@ class SearchScreen extends Component {
     }
   };
 
+  _handlePress = url => {
+    Linking.openURL(url).catch(err => console.error('An error occurred', err));
+  };
   render() {
     const {
       error,
@@ -90,6 +101,13 @@ class SearchScreen extends Component {
               <Text>
                 {book.subtitle}
               </Text>}
+
+            {!!book.link &&
+              <TouchableOpacity onPress={() => this._handlePress(book.link)}>
+                <Text style={styles.link}>
+                  Open
+                </Text>
+              </TouchableOpacity>}
           </View>
         ))}
 
@@ -111,6 +129,9 @@ const styles = StyleSheet.create({
     padding: 15,
     borderBottomWidth: 1,
     borderBottomColor: Colors.border
+  },
+  link: {
+    color: 'blue'
   }
 });
 
