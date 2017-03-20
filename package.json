@@ -23,6 +23,7 @@
     "prettier": "^0.22.0",
     "react": "~15.4.0",
     "react-apollo": "^1.0.0-rc.3",
+    "react-instantsearch": "^3.2.1",
     "react-native": "https://github.com/exponent/react-native/archive/sdk-15.0.0.tar.gz"
   },
   "devDependencies": {
