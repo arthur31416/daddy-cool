@@ -80,11 +80,14 @@ type SearchBoxTypes = {
 };
 
 const SearchBox = ({ refine, currentRefinement }: SearchBoxTypes) => (
-  <TextInput
-    style={styles.textInput}
-    onChangeText={refine}
-    value={currentRefinement}
-  />
+  <View style={styles.textInputContainer}>
+    <TextInput
+      style={styles.textInput}
+      onChangeText={refine}
+      value={currentRefinement}
+      placeholder="Start typing an author or a book"
+    />
+  </View>
 );
 
 const ConnectedSearchBox = connectSearchBox(SearchBox);
@@ -135,6 +138,7 @@ class Hits extends Component {
             dataSource={ds.cloneWithRows(this.props.hits)}
             renderRow={this._renderRow.bind(this, this._handlePress)}
             onEndReached={this._onEndReached.bind(this)}
+            showsVerticalScrollIndicator={false}
           />
         </View>
       : null;
@@ -152,19 +156,21 @@ const ConnectedHits = connectInfiniteHits(Hits);
 
 const styles = StyleSheet.create({
   maincontainer: {
-    paddingTop: 15,
-    paddingHorizontal: 15
+    backgroundColor: Colors.background
   },
   thumbnail: {
     backgroundColor: '#fafafa',
-    height: 64,
-    width: 64
+    height: 80,
+    width: 80
   },
   item: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
-    paddingVertical: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: Colors.border
   },
@@ -176,12 +182,14 @@ const styles = StyleSheet.create({
   link: {
     color: 'blue'
   },
+  textInputContainer: {
+    flex: 1,
+    marginBottom: 60
+  },
   textInput: {
-    height: 42,
+    height: 50,
     paddingHorizontal: 15,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 15
+    backgroundColor: '#fff'
   }
 });
 
