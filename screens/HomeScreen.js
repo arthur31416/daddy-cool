@@ -14,38 +14,64 @@ import gql from 'graphql-tag';
 
 import { MonoText } from '../components/StyledText';
 
+// const rawBooks1 = require('../tracks_1.json');
+
 const createBookMutation = gql`
   mutation createBook(
     $author: String!
+    $authorId: Int
     $title: String!
     $size: Float
-    $arrayMeta: [BOOK_ARRAY_META!],
-    $yearBirth: Int,
-    $yearDeath: Int,
-    $link: String,
-    $subtitle: String,
-    $thumbnail: String
+    $bookCoordinator: Json
+    $metaCoordinator: Json
+    $proofListener: Json
+    $reader: Json
+    $catalogDate: DateTime
+    $yearBirth: Int
+    $yearDeath: Int
+    $time: Int
+    $coverArt: String
+    $coverArtLarge: String
+    $description: String
+    $language: String
+    $tracks: [Json!]!
   ) {
     createBook(
       author: $author
+      authorId: $authorId
       title: $title
       size: $size
-      arrayMeta: $arrayMeta,
-      yearBirth: $yearBirth,
-      yearDeath: $yearDeath,
-      link: $link,
-      subtitle: $subtitle,
-      thumbnail: $thumbnail
+      bookCoordinator: $bookCoordinator
+      metaCoordinator: $metaCoordinator
+      proofListener: $proofListener
+      reader: $reader
+      catalogDate: $catalogDate
+      yearBirth: $yearBirth
+      yearDeath: $yearDeath
+      time: $time
+      coverArt: $coverArt
+      coverArtLarge: $coverArtLarge
+      description: $description
+      language: $language
+      tracks: $tracks
     ) {
       author
+      authorId
       title
       size
-      arrayMeta,
-      yearBirth,
-      yearDeath,
-      link,
-      subtitle,
-      thumbnail
+      bookCoordinator
+      metaCoordinator
+      proofListener
+      reader
+      catalogDate
+      yearBirth
+      yearDeath
+      time
+      coverArt
+      coverArtLarge
+      description
+      language
+      tracks
     }
   }
 `;
@@ -58,46 +84,69 @@ class HomeScreen extends React.Component {
   };
 
   componentDidMount() {
-    const rawBooks = require('../books_actual_XXX.json');
-
-    rawBooks &&
-      rawBooks.forEach(book => {
+    false &&
+      rawBooks1 &&
+      rawBooks1.forEach(book => {
         this._handleSave(
           book.author,
+          book.authorId,
           book.title,
           book.size,
-          book.arrayMeta,
+          book.bookCoordinator,
+          book.metaCoordinator,
+          book.proofListener,
+          book.reader,
+          book.catalogDate,
           book.yearBirth,
           book.yearDeath,
-          book.link,
-          book.subtitle,
-          book.thumbnail
+          book.time,
+          book.coverArt,
+          book.coverArtLarge,
+          book.description,
+          book.language,
+          book.tracks
         );
       });
   }
 
   _handleSave = async (
     author,
+    authorId,
     title,
     size,
-    arrayMeta,
+    bookCoordinator,
+    metaCoordinator,
+    proofListener,
+    reader,
+    catalogDate,
     yearBirth,
     yearDeath,
-    link,
-    subtitle,
-    thumbnail
+    time,
+    coverArt,
+    coverArtLarge,
+    description,
+    language,
+    tracks
   ) => {
     await this.props.mutate({
       variables: {
         author,
+        authorId,
         title,
         size,
-        arrayMeta,
+        bookCoordinator,
+        metaCoordinator,
+        proofListener,
+        reader,
+        catalogDate: new Date(catalogDate),
         yearBirth,
         yearDeath,
-        link,
-        subtitle,
-        thumbnail
+        time,
+        coverArt,
+        coverArtLarge,
+        description,
+        language,
+        tracks
       }
     });
   };

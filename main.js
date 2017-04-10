@@ -11,7 +11,7 @@ import cacheAssetsAsync from './utilities/cacheAssetsAsync';
 
 const client = new ApolloClient({
   networkInterface: createNetworkInterface({
-    uri: 'https://api.graph.cool/simple/v1/cj070mvgb7pmu01446bg5h2j2'
+    uri: 'https://api.graph.cool/simple/v1/cj1cdrvmv1duf0198ttxwimsg'
   })
 });
 
