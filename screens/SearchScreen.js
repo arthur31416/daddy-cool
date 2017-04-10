@@ -104,7 +104,7 @@ class Hits extends Component {
 
   _renderRow = (handlePress, hit) => (
     <View style={styles.item}>
-      <Image style={styles.thumbnail} source={{ uri: hit.thumbnail }} />
+      <Image style={styles.coverArt} source={{ uri: hit.coverArt }} />
 
       <View style={styles.column}>
         <Text numberOfLines={1} ellipsizeMode="middle">
@@ -118,13 +118,6 @@ class Hits extends Component {
         <Text>
           {hit.size}Mb
         </Text>
-
-        {!!hit.link &&
-          <TouchableOpacity onPress={() => handlePress(hit.link)}>
-            <Text style={styles.link}>
-              Open
-            </Text>
-          </TouchableOpacity>}
       </View>
     </View>
   );
@@ -158,7 +151,7 @@ const styles = StyleSheet.create({
   maincontainer: {
     backgroundColor: Colors.background
   },
-  thumbnail: {
+  coverArt: {
     backgroundColor: '#fafafa',
     height: 80,
     width: 80
