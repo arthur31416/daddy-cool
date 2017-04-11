@@ -7,11 +7,19 @@ import { ScrollView, StyleSheet, Text } from 'react-native';
 
 const BookQuery = gql`
   query BookQuery {
-    allBooks(filter: {author: "Emile Ajar"}) {
+    allBooks(filter: {temporary: false}) {
       id
-      title
-      author,
-      size
+
+    }
+  }
+`;
+
+const updateBook = gql`
+  mutation updateBook($id: ID!, $genre: [String!], $temporary: Boolean) {
+    updateBook(id: $id, genre: $genre, temporary: $temporary) {
+      id
+      genre
+      temporary
     }
   }
 `;
@@ -41,13 +49,22 @@ class SearchScreen extends Component {
     }
   };
 
+  // componentWillReceiveProps (nextProps) {
+  //   if (!this.props.data.allBooks && nextProps.data.allBooks) {
+  //     console.warn('BBB', nextProps.data.allBooks.length)
+  //     nextProps.data.allBooks.forEach(book => {
+  //       nextProps.mutate({ variables: { id: book.id, genre: ["Da"], temporary: true } });
+  //     })
+  //   }
+  // }
+
   render() {
+    // console.warn('°°°°', this.props.mutate)
     const {
       error,
       loading,
       allBooks
     } = this.props.data;
-
     if (error) {
       return (
         <Text>
@@ -55,7 +72,6 @@ class SearchScreen extends Component {
         </Text>
       );
     }
-
     if (loading || !allBooks) {
       return (
         <Text>
@@ -63,31 +79,26 @@ class SearchScreen extends Component {
         </Text>
       );
     }
-
     return (
       <ScrollView
         style={styles.container}
         contentContainerStyle={this.props.route.getContentContainerStyle()}
       >
 
-        {allBooks.map(book => (
-          <Text key={book.id}>
-            {book.author} - {book.title} ({book.size}Mb)
-          </Text>
-        ))}
+        <Text>
+          {allBooks.length}
+        </Text>
 
       </ScrollView>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15
   }
 });
-
-const SearchScreenWithData = graphql(BookQuery)(SearchScreen);
-
+const BooksWithMutation = graphql(updateBook)(SearchScreen);
+const SearchScreenWithData = graphql(BookQuery)(BooksWithMutation);
 export default SearchScreenWithData;

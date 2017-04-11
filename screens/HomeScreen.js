@@ -83,31 +83,31 @@ class HomeScreen extends React.Component {
     }
   };
 
-  componentDidMount() {
-    false &&
-      rawBooks1 &&
-      rawBooks1.forEach(book => {
-        this._handleSave(
-          book.author,
-          book.authorId,
-          book.title,
-          book.size,
-          book.bookCoordinator,
-          book.metaCoordinator,
-          book.proofListener,
-          book.reader,
-          book.catalogDate,
-          book.yearBirth,
-          book.yearDeath,
-          book.time,
-          book.coverArt,
-          book.coverArtLarge,
-          book.description,
-          book.language,
-          book.tracks
-        );
-      });
-  }
+  // componentDidMount() {
+  //   false &&
+  //     rawBooks1 &&
+  //     rawBooks1.forEach(book => {
+  //       this._handleSave(
+  //         book.author,
+  //         book.authorId,
+  //         book.title,
+  //         book.size,
+  //         book.bookCoordinator,
+  //         book.metaCoordinator,
+  //         book.proofListener,
+  //         book.reader,
+  //         book.catalogDate,
+  //         book.yearBirth,
+  //         book.yearDeath,
+  //         book.time,
+  //         book.coverArt,
+  //         book.coverArtLarge,
+  //         book.description,
+  //         book.language,
+  //         book.tracks
+  //       );
+  //     });
+  // }
 
   _handleSave = async (
     author,
