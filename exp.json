@@ -2,7 +2,7 @@
   "name": "dady-cool",
   "description": "No description",
   "slug": "dady-cool",
-  "privacy": "unlisted",
+  "privacy": "public",
   "sdkVersion": "15.0.0",
   "version": "1.0.0",
   "orientation": "portrait",
