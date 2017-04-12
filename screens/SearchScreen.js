@@ -149,7 +149,8 @@ const ConnectedHits = connectInfiniteHits(Hits);
 
 const styles = StyleSheet.create({
   maincontainer: {
-    backgroundColor: Colors.background
+    backgroundColor: Colors.background,
+    marginBottom: 166 // TODO: actually solve the issue
   },
   coverArt: {
     backgroundColor: '#fafafa',
