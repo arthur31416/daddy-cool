@@ -1,8 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-// import { graphql } from "react-apollo";
-// import gql from "graphql-tag";
+import Router from '../navigation/Router'
 import {
   ScrollView,
   StyleSheet,
@@ -11,9 +10,9 @@ import {
   Image,
   ListView,
   TextInput,
-  Linking,
   TouchableOpacity
 } from 'react-native';
+import { withNavigation } from '@expo/ex-navigation';
 import { InstantSearch } from 'react-instantsearch/native';
 import {
   connectSearchBox,
@@ -22,31 +21,8 @@ import {
 import Colors from '../constants/Colors';
 import { algoliaKeys } from '../constants/Keys';
 
-// const BookQuery = gql`
-//   query BookQuery {
-//     allBooks(filter: {author: "William Faulkner"}) {
-//       id
-//       title
-//       author,
-//       size
-//     }
-//   }
-// `;
-
 type Props = {
   route: Object
-  // data: {
-  //   error: any,
-  //   loading: boolean,
-  //   networkStatus: number,
-  //   variables: Object,
-  //   allBooks: Array<{
-  //     id: string,
-  //     title: string,
-  //     author: string,
-  //     size?: number
-  //   }>
-  // }
 };
 
 class SearchScreen extends Component {
@@ -92,34 +68,41 @@ const SearchBox = ({ refine, currentRefinement }: SearchBoxTypes) => (
 
 const ConnectedSearchBox = connectSearchBox(SearchBox);
 
+// prettier-ignore
+@withNavigation
 class Hits extends Component {
   _onEndReached = () => {
     if (this.props.hasMore) {
       this.props.refine();
     }
   };
-  _handlePress = url => {
-    Linking.openURL(url).catch(err => console.error('An error occurred', err));
+
+  _handlePress = (id: string, title: string) => {
+    // Linking.openURL(url).catch(err => console.error('An error occurred', err));
+    this.props.navigator.push(Router.getRoute('book', { id, title }));
+    // console.warn('000', this.props.navigator)
   };
 
   _renderRow = (handlePress, hit) => (
-    <View style={styles.item}>
-      <Image style={styles.coverArt} source={{ uri: hit.coverArt }} />
+    <TouchableOpacity onPress={() => handlePress(hit.id, hit.title)}>
+      <View style={styles.item}>
+        <Image style={styles.coverArt} source={{ uri: hit.coverArt }} />
 
-      <View style={styles.column}>
-        <Text numberOfLines={1} ellipsizeMode="middle">
-          {hit.author}
-        </Text>
+        <View style={styles.column}>
+          <Text numberOfLines={1} ellipsizeMode="middle">
+            {hit.author}
+          </Text>
 
-        <Text numberOfLines={1}>
-          {hit.title}
-        </Text>
+          <Text numberOfLines={1}>
+            {hit.title}
+          </Text>
 
-        <Text>
-          {hit.size}Mb
-        </Text>
+          <Text>
+            {hit.size}Mb
+          </Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
   render() {
     const ds = new ListView.DataSource({
@@ -186,7 +169,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   }
 });
-
-// const SearchScreenWithData = graphql(BookQuery)(SearchScreen);
 
 export default SearchScreen;
