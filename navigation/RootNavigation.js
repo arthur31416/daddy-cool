@@ -26,30 +26,11 @@ export default class RootNavigation extends React.Component {
 
   render() {
     return (
-      <TabNavigation tabBarHeight={56} initialTab="home">
-        <TabNavigationItem
-          id="home"
-          selectedStyle={styles.selectedTab}
-          style={styles.tab}
-          renderIcon={isSelected =>
-            this._renderIcon(isAndroid ? 'md-home' : 'ios-home', isSelected)}
-        >
-          <StackNavigation initialRoute="home" />
-        </TabNavigationItem>
-
-        <TabNavigationItem
-          id="links"
-          selectedStyle={styles.selectedTab}
-          style={styles.tab}
-          renderIcon={isSelected =>
-            this._renderIcon(
-              isAndroid ? 'md-search' : 'ios-search',
-              isSelected
-            )}
-        >
-          <StackNavigation initialRoute="links" />
-        </TabNavigationItem>
-
+      <TabNavigation
+        tabBarHeight={56}
+        initialTab="settings"
+        navigatorUID="main"
+      >
         <TabNavigationItem
           id="settings"
           selectedStyle={styles.selectedTab}
@@ -60,7 +41,28 @@ export default class RootNavigation extends React.Component {
               isSelected
             )}
         >
-          <StackNavigation initialRoute="settings" />
+          <StackNavigation
+            initialRoute="settings"
+            defaultRouteConfig={{
+              navigationBar: {
+                backgroundColor: Colors.navBarBackground,
+                tintColor: Colors.navBarColor
+              }
+            }}
+          />
+        </TabNavigationItem>
+
+        <TabNavigationItem
+          id="search"
+          selectedStyle={styles.selectedTab}
+          style={styles.tab}
+          renderIcon={isSelected =>
+            this._renderIcon(
+              isAndroid ? 'md-search' : 'ios-search',
+              isSelected
+            )}
+        >
+          <StackNavigation initialRoute="search" />
         </TabNavigationItem>
       </TabNavigation>
     );

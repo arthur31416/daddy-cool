@@ -1,140 +1,182 @@
 // @flow
+// https://github.com/crabstudio/react-native-search-box
 
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import Router from '../navigation/Router'
 import {
   ScrollView,
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  Linking
+  Image,
+  ListView,
+  TextInput,
+  TouchableOpacity
 } from 'react-native';
+import { withNavigation } from '@expo/ex-navigation';
+import { InstantSearch } from 'react-instantsearch/native';
+  import {
+  connectSearchBox,
+  connectInfiniteHits
+} from 'react-instantsearch/connectors';
 import Colors from '../constants/Colors';
-
-const BookQuery = gql`
-  query BookQuery {
-    allBooks(filter: {author: "Robert GRAVES"}) {
-      id
-      title
-      author,
-      size,
-      subtitle,
-      link
-    }
-  }
-`;
+import { algoliaKeys } from '../constants/Keys';
+import { metrics } from '../themes';
+import SearchBar from 'react-native-search-box'
 
 type Props = {
-  route: Object,
-  data: {
-    error: any,
-    loading: boolean,
-    networkStatus: number,
-    variables: Object,
-    allBooks: Array<{
-      id: string,
-      title: string,
-      author: string,
-      size?: number
-    }>
-  }
+  route: Object
 };
 
 class SearchScreen extends Component {
   props: Props;
 
-  static route = {
-    navigationBar: {
-      title: 'Links'
-    }
-  };
-
-  _handlePress = url => {
-    Linking.openURL(url).catch(err => console.error('An error occurred', err));
-  };
   render() {
-    const {
-      error,
-      loading,
-      allBooks
-    } = this.props.data;
-
-    if (error) {
-      return (
-        <Text>
-          Unexpected error
-        </Text>
-      );
-    }
-
-    if (loading || !allBooks) {
-      return (
-        <Text>
-          Loading...
-        </Text>
-      );
-    }
-
     return (
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={this.props.route.getContentContainerStyle()}
-      >
-        <Text style={styles.title}>
-          Search for: Robert GRAVES
-        </Text>
-
-        {allBooks.length === 0 &&
-          <Text>
-            No result!
-          </Text>}
-
-        {allBooks.map(book => (
-          <View key={book.id} style={styles.item}>
-            <Text>
-              {book.title} ({book.size}Mb)
-            </Text>
-
-            {!!book.subtitle &&
-              <Text>
-                {book.subtitle}
-              </Text>}
-
-            {!!book.link &&
-              <TouchableOpacity onPress={() => this._handlePress(book.link)}>
-                <Text style={styles.link}>
-                  Open
-                </Text>
-              </TouchableOpacity>}
-          </View>
-        ))}
-
-      </ScrollView>
+      <View style={styles.maincontainer}>
+        <InstantSearch
+          appId={algoliaKeys.appId}
+          apiKey={algoliaKeys.apiKey}
+          indexName={algoliaKeys.indexName}
+        >
+          <ConnectedSearchBox />
+          <ConnectedHits />
+        </InstantSearch>
+      </View>
     );
   }
 }
 
+type SearchBoxTypes = {
+  refine: () => void,
+  currentRefinement: string
+};
+
+const SearchBox = ({ refine, currentRefinement }: SearchBoxTypes) => (
+  <View style={styles.searchContainer}>
+    <SearchBar
+      placeholder="Search"
+      cancelTitle='Cancel'
+      titleCancelColor={Colors.primary}
+      value={currentRefinement}
+      onChangeText={refine}
+      backgroundColor='#fff'
+      // inputHeight={30}
+      tintColorDelete={Colors.primary}
+      placeholderBackgroundColor={Colors.grayLight}
+    />
+  </View>
+);
+
+const ConnectedSearchBox = connectSearchBox(SearchBox);
+
+// prettier-ignore
+@withNavigation
+class Hits extends Component {
+  _onEndReached = () => {
+    if (this.props.hasMore) {
+      this.props.refine();
+    }
+  };
+
+  _handlePress = (hit: Object) => {
+    const {
+      id,
+      title,
+      coverArt,
+      coverArtLarge,
+      author
+    } = hit
+    this.props.navigator.push(Router.getRoute('book', {
+      id,
+      title,
+      coverArt,
+      coverArtLarge,
+      author
+    }));
+  };
+
+  _renderRow = (handlePress, hit) => (
+    <TouchableOpacity onPress={() => handlePress(hit)}>
+      <View style={styles.item}>
+        <Image style={styles.coverArt} source={{ uri: hit.coverArt }} />
+
+        <View style={styles.column}>
+          <Text numberOfLines={1} ellipsizeMode="middle">
+            {hit.author}
+          </Text>
+
+          <Text numberOfLines={1}>
+            {hit.title}
+          </Text>
+
+          <Text>
+            {hit.size}Mb
+          </Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+  render() {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+    const hits = this.props.hits.length > 0
+      ? <View>
+          <ListView
+            dataSource={ds.cloneWithRows(this.props.hits)}
+            renderRow={this._renderRow.bind(this, this._handlePress)}
+            onEndReached={this._onEndReached.bind(this)}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+      : null;
+    return hits;
+  }
+}
+
+Hits.propTypes = {
+  hits: React.PropTypes.array.isRequired,
+  refine: React.PropTypes.func.isRequired,
+  hasMore: React.PropTypes.bool.isRequired
+};
+
+const ConnectedHits = connectInfiniteHits(Hits);
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 15
+  maincontainer: {
+    backgroundColor: '#fff',
+    marginBottom: 166 // TODO: actually solve the issue
   },
-  title: {
-    padding: 15,
-    fontWeight: '600'
+  coverArt: {
+    backgroundColor: Colors.background,
+    height: 80,
+    width: 80
   },
   item: {
-    padding: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border
+    borderColor: Colors.border
+  },
+  column: {
+    flex: 1,
+    flexDirection: 'column',
+    paddingLeft: 15
   },
   link: {
-    color: 'blue'
+    color: Colors.primary
+  },
+  searchContainer: {
+    flex: 1,
+    marginBottom: 60,
+    paddingTop: metrics.statusBarHeight
   }
 });
 
-const SearchScreenWithData = graphql(BookQuery)(SearchScreen);
-
-export default SearchScreenWithData;
+export default SearchScreen;

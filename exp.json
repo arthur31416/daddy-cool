@@ -1,8 +1,8 @@
 {
   "name": "dady-cool",
-  "description": "No description",
-  "slug": "dady-cool",
-  "privacy": "unlisted",
+  "description": "Find and listen to free audiobooks.",
+  "slug": "daddy-cool",
+  "privacy": "public",
   "sdkVersion": "15.0.0",
   "version": "1.0.0",
   "orientation": "portrait",
