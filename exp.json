@@ -3,7 +3,7 @@
   "description": "Find and listen to free audiobooks.",
   "slug": "daddy-cool",
   "privacy": "public",
-  "sdkVersion": "15.0.0",
+  "sdkVersion": "16.0.0",
   "version": "1.0.0",
   "orientation": "portrait",
   "primaryColor": "#cccccc",
