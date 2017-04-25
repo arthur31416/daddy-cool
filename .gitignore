@@ -2,3 +2,4 @@ node_modules/**/*
 .expo/**/*
 books_actual*
 constants/Keys*
+.expo-source*
