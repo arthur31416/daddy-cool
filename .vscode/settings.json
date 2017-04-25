@@ -8,5 +8,10 @@
   "editor.fontLigatures": true,
   "editor.fontSize": 12,
   "editor.tabSize": 2,
-  "eslint.enable": true
+  "eslint.enable": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    ".expo-source": true
+  }
 }

@@ -6,5 +6,9 @@
 	<date>2017-04-24T17:02:23Z</date>
 	<key>WorkspacePath</key>
 	<string>/Users/arthur/dev/daddy-cool/ios/dady-cool.xcworkspace</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
 </dict>
 </plist>

@@ -24,6 +24,8 @@ target 'dady-cool' do
   pod 'Yoga',
     :path => "../node_modules/react-native/ReactCommon/yoga"
 
+  pod 'RNAudioStreaming',
+    :path => '../node_modules/react-native-audio-streaming'
 
   post_install do |installer|
     installer.pods_project.main_group.tab_width = '2';

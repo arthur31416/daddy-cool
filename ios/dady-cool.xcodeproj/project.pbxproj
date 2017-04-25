@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		B501732B1DC01252003445D9 /* EXShell.plist in Resources */ = {isa = PBXBuildFile; fileRef = B501732A1DC01252003445D9 /* EXShell.plist */; };
 		B56386491DB9693800A0598C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B56386481DB9693800A0598C /* AppDelegate.m */; };
@@ -17,8 +16,26 @@
 		EBB8117C1BFA0514F79CAF74 /* libPods-dady-cool.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A88D15726AD99E8A257BC7 /* libPods-dady-cool.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8EDC7A291EAF712000E57551 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8EDC7A241EAF712000E57551 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D796608261BE7EF75B9CA099BE45490;
+			remoteInfo = "Pods-ReactNativeAudioStreaming";
+		};
+		8EDC7A2B1EAF712000E57551 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8EDC7A241EAF712000E57551 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8354B6B10F10687EE626DF43663B075A;
+			remoteInfo = StreamingKit;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		2C1548D9E4CB1AEFA5CCAE6D /* Pods-dady-cool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dady-cool.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dady-cool/Pods-dady-cool.debug.xcconfig"; sourceTree = "<group>"; };
+		8EDC7A241EAF712000E57551 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = "../node_modules/react-native-audio-streaming/ios/Pods/Pods.xcodeproj"; sourceTree = "<group>"; };
 		A47FE4D7F70906B7DC8CE39B /* Pods-dady-cool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dady-cool.release.xcconfig"; path = "Pods/Target Support Files/Pods-dady-cool/Pods-dady-cool.release.xcconfig"; sourceTree = "<group>"; };
 		B501732A1DC01252003445D9 /* EXShell.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EXShell.plist; sourceTree = "<group>"; };
 		B56386411DB9693800A0598C /* dady-cool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dady-cool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +79,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		7F6FEF320CC64354B0988EB7 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				8EDC7A241EAF712000E57551 /* Pods.xcodeproj */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		8EDC7A251EAF712000E57551 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8EDC7A2A1EAF712000E57551 /* libPods-ReactNativeAudioStreaming.a */,
+				8EDC7A2C1EAF712000E57551 /* libStreamingKit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		B56386381DB9693800A0598C = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +103,7 @@
 				B56386421DB9693800A0598C /* Products */,
 				5B29BC350A332C58878A9F13 /* Pods */,
 				1A42804E64B7E9E0AB8B6799 /* Frameworks */,
+				7F6FEF320CC64354B0988EB7 /* Libraries */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,12 +169,12 @@
 		B56386391DB9693800A0598C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 810;
 				ORGANIZATIONNAME = "650 Industries, Inc.";
 				TargetAttributes = {
 					B56386401DB9693800A0598C = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = C8D8QTF339;
+						DevelopmentTeam = RFTBT258C8;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -155,12 +190,35 @@
 			mainGroup = B56386381DB9693800A0598C;
 			productRefGroup = B56386421DB9693800A0598C /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8EDC7A251EAF712000E57551 /* Products */;
+					ProjectRef = 8EDC7A241EAF712000E57551 /* Pods.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				B56386401DB9693800A0598C /* dady-cool */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8EDC7A2A1EAF712000E57551 /* libPods-ReactNativeAudioStreaming.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-ReactNativeAudioStreaming.a";
+			remoteRef = 8EDC7A291EAF712000E57551 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8EDC7A2C1EAF712000E57551 /* libStreamingKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libStreamingKit.a;
+			remoteRef = 8EDC7A2B1EAF712000E57551 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		B563863F1DB9693800A0598C /* Resources */ = {
@@ -347,9 +405,44 @@
 			baseConfigurationReference = 2C1548D9E4CB1AEFA5CCAE6D /* Pods-dady-cool.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = C8D8QTF339;
+				DEVELOPMENT_TEAM = RFTBT258C8;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_ROOT}/Google/Headers",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Amplitude-iOS\"",
+					"\"${PODS_ROOT}/Headers/Public/Analytics\"",
+					"\"${PODS_ROOT}/Headers/Public/AppAuth\"",
+					"\"${PODS_ROOT}/Headers/Public/Bolts\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
+					"\"${PODS_ROOT}/Headers/Public/Crashlytics\"",
+					"\"${PODS_ROOT}/Headers/Public/ExpoKit\"",
+					"\"${PODS_ROOT}/Headers/Public/ExponentCPP\"",
+					"\"${PODS_ROOT}/Headers/Public/FBAudienceNetwork\"",
+					"\"${PODS_ROOT}/Headers/Public/FBSDKCoreKit\"",
+					"\"${PODS_ROOT}/Headers/Public/FBSDKLoginKit\"",
+					"\"${PODS_ROOT}/Headers/Public/FBSDKShareKit\"",
+					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAnalytics\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseCore\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseInstanceID\"",
+					"\"${PODS_ROOT}/Headers/Public/GTMOAuth2\"",
+					"\"${PODS_ROOT}/Headers/Public/GTMSessionFetcher\"",
+					"\"${PODS_ROOT}/Headers/Public/Google\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleMaps\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleSignIn\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleToolboxForMac\"",
+					"\"${PODS_ROOT}/Headers/Public/React\"",
+					"\"${PODS_ROOT}/Headers/Public/Yoga\"",
+					"\"${PODS_ROOT}/Headers/Public/lottie-ios\"",
+					"$(SRCROOT)/../node_modules/react-native-audio-streaming/ios/**",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/dady-cool/Supporting/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.getexponent.dady-cool";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -360,9 +453,44 @@
 			baseConfigurationReference = A47FE4D7F70906B7DC8CE39B /* Pods-dady-cool.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = C8D8QTF339;
+				DEVELOPMENT_TEAM = RFTBT258C8;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_ROOT}/Google/Headers",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Amplitude-iOS\"",
+					"\"${PODS_ROOT}/Headers/Public/Analytics\"",
+					"\"${PODS_ROOT}/Headers/Public/AppAuth\"",
+					"\"${PODS_ROOT}/Headers/Public/Bolts\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
+					"\"${PODS_ROOT}/Headers/Public/Crashlytics\"",
+					"\"${PODS_ROOT}/Headers/Public/ExpoKit\"",
+					"\"${PODS_ROOT}/Headers/Public/ExponentCPP\"",
+					"\"${PODS_ROOT}/Headers/Public/FBAudienceNetwork\"",
+					"\"${PODS_ROOT}/Headers/Public/FBSDKCoreKit\"",
+					"\"${PODS_ROOT}/Headers/Public/FBSDKLoginKit\"",
+					"\"${PODS_ROOT}/Headers/Public/FBSDKShareKit\"",
+					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAnalytics\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseCore\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseInstanceID\"",
+					"\"${PODS_ROOT}/Headers/Public/GTMOAuth2\"",
+					"\"${PODS_ROOT}/Headers/Public/GTMSessionFetcher\"",
+					"\"${PODS_ROOT}/Headers/Public/Google\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleMaps\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleSignIn\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleToolboxForMac\"",
+					"\"${PODS_ROOT}/Headers/Public/React\"",
+					"\"${PODS_ROOT}/Headers/Public/Yoga\"",
+					"\"${PODS_ROOT}/Headers/Public/lottie-ios\"",
+					"$(SRCROOT)/../node_modules/react-native-audio-streaming/ios/**",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/dady-cool/Supporting/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.getexponent.dady-cool";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

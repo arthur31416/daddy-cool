@@ -26,6 +26,7 @@
     "react-apollo": "^1.0.0-rc.3",
     "react-instantsearch": "^3.2.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-16.0.0.tar.gz",
+    "react-native-audio-streaming": "^2.3.2",
     "react-native-progressive-image": "^1.0.4",
     "react-native-search-box": "arthur31416/react-native-search-box#master",
     "recompose": "^0.23.1"
